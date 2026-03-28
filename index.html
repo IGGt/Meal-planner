@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gates Family Meal Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #fdf8f0;
+    --parchment: #f5ede0;
+    --warm-border: #e8d8c4;
+    --green: #3a6b4a;
+    --green-light: #5a9b6e;
+    --green-faint: #eef5f1;
+    --amber: #c9762a;
+    --amber-light: #f5e6d4;
+    --text-dark: #2c2415;
+    --text-mid: #5a4a35;
+    --text-light: #8a7560;
+    --shadow: rgba(60, 40, 10, 0.10);
+    --radius: 12px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+    padding-bottom: 60px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--green);
+    padding: 28px 24px 22px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 18px rgba(30,60,30,0.18);
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 4vw, 2.4rem);
+    color: #fff;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+  }
+  header .subtitle {
+    color: rgba(255,255,255,0.65);
+    font-size: 0.78rem;
+    margin-top: 4px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ── TOOLBAR ── */
+  .toolbar {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 16px 16px 0;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 18px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.03em;
+    transition: all 0.18s ease;
+  }
+  .btn-primary {
+    background: var(--green);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(58,107,74,0.3);
+  }
+  .btn-primary:hover { background: var(--green-light); transform: translateY(-1px); }
+  .btn-danger {
+    background: #fff;
+    color: #b94040;
+    border: 1.5px solid #e8b8b8;
+    box-shadow: 0 2px 8px rgba(185,64,64,0.1);
+  }
+  .btn-danger:hover { background: #fff0f0; border-color: #c95050; }
+  .btn-export {
+    background: #fff;
+    color: var(--green);
+    border: 1.5px solid var(--warm-border);
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+  .btn-export:hover { background: var(--green-faint); border-color: var(--green-light); }
+
+  /* ── WEEK BLOCK ── */
+  .weeks-container {
+    padding: 20px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .week-block {
+    background: var(--parchment);
+    border: 1.5px solid var(--warm-border);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px var(--shadow);
+  }
+  .week-header {
+    background: var(--green);
+    color: #fff;
+    padding: 10px 18px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+
+  /* ── DAY CARD ── */
+  .day-card {
+    border-bottom: 1.5px solid var(--warm-border);
+    padding: 16px 16px 18px;
+  }
+  .day-card:last-child { border-bottom: none; }
+  .day-header {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .day-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--green);
+    min-width: 100px;
+  }
+  .day-date-display {
+    font-size: 0.82rem;
+    color: var(--text-mid);
+    font-weight: 600;
+    cursor: pointer;
+    padding: 3px 8px;
+    border-radius: 6px;
+    border: 1.5px dashed transparent;
+    transition: all 0.15s;
+  }
+  .day-date-display:hover {
+    border-color: var(--warm-border);
+    background: #fff;
+  }
+  .day-date-input {
+    font-size: 0.82rem;
+    font-family: 'Nunito', sans-serif;
+    padding: 3px 8px;
+    border-radius: 6px;
+    border: 1.5px solid var(--green-light);
+    background: #fff;
+    color: var(--text-dark);
+    display: none;
+  }
+  .edit-hint {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    font-style: italic;
+    margin-left: 4px;
+  }
+
+  /* ── MEALS GRID ── */
+  .meals-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    gap: 10px;
+  }
+  @media (max-width: 700px) {
+    .meals-grid { grid-template-columns: 1fr; }
+  }
+
+  .meal-card {
+    background: #fff;
+    border: 1.5px solid var(--warm-border);
+    border-radius: var(--radius);
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .meal-title {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--amber);
+    padding-bottom: 6px;
+    border-bottom: 1.5px solid var(--amber-light);
+  }
+  .who-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .who-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-mid);
+    cursor: pointer;
+    user-select: none;
+  }
+  .who-label input[type="checkbox"] {
+    accent-color: var(--green);
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+  }
+  .meal-notes {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.82rem;
+    padding: 7px 10px;
+    border: 1.5px solid var(--warm-border);
+    border-radius: 8px;
+    resize: vertical;
+    min-height: 52px;
+    background: var(--cream);
+    color: var(--text-dark);
+    transition: border-color 0.15s;
+    line-height: 1.5;
+  }
+  .meal-notes:focus {
+    outline: none;
+    border-color: var(--green-light);
+    background: #fff;
+  }
+
+  /* ── DINNER SUB-SECTIONS ── */
+  .dinner-subsections {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .sub-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .sub-label {
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding-top: 8px;
+    min-width: 50px;
+    color: var(--text-light);
+  }
+  .sub-label.protein { color: #a0522d; }
+  .sub-label.carbs   { color: #8b6c2a; }
+  .sub-label.veg     { color: #4a7c59; }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(20,15,5,0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal {
+    background: var(--cream);
+    border-radius: 16px;
+    padding: 28px 24px;
+    max-width: 340px;
+    width: 90%;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+    text-align: center;
+  }
+  .modal h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+  }
+  .modal p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.5; margin-bottom: 20px; }
+  .modal-btns { display: flex; gap: 10px; justify-content: center; }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--text-light);
+  }
+  .empty-state .icon { font-size: 3rem; margin-bottom: 12px; }
+  .empty-state p { font-size: 0.95rem; }
+
+  /* ── SAVE INDICATOR ── */
+  .save-toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--green);
+    color: #fff;
+    padding: 9px 18px;
+    border-radius: 50px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+    z-index: 500;
+  }
+  .save-toast.show { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Gates Family Meal Planner</h1>
+  <div class="subtitle">Plan · Eat · Enjoy</div>
+</header>
+
+<div class="toolbar">
+  <button class="btn btn-primary" onclick="addWeek()">＋ Add Next Week</button>
+  <button class="btn btn-danger" onclick="confirmRemoveFirst()">✕ Remove First Week</button>
+  <button class="btn btn-export" onclick="exportData()">⬇ Export</button>
+  <button class="btn btn-export" onclick="document.getElementById('importFile').click()">⬆ Import</button>
+  <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
+</div>
+
+<div id="storageBanner" style="display:none; background:#fff8e6; border:1.5px solid #f0c060; border-radius:10px; margin:14px 14px 0; padding:11px 16px; align-items:center; gap:12px; font-size:0.83rem; color:#6b4a10; max-width:960px; margin-left:auto; margin-right:auto;">
+  <span style="font-size:1.2rem">⚠️</span>
+  <span><strong>Auto-save unavailable</strong> — your browser is blocking local storage for this file. Your changes will be lost when you close the tab. Use <strong>⬇ Export</strong> to save your data and <strong>⬆ Import</strong> to reload it next time.</span>
+</div>
+
+<div class="weeks-container" id="weeksContainer"></div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h3>Remove Week?</h3>
+    <p>This will permanently remove the first week from your planner. Are you sure?</p>
+    <div class="modal-btns">
+      <button class="btn btn-danger" onclick="removeFirstWeek()">Yes, Remove</button>
+      <button class="btn btn-primary" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="save-toast" id="saveToast">✓ Saved</div>
+
+<script>
+const PEOPLE = ['Ian', 'Cristina', 'Maya'];
+const DAY_NAMES = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+let data = { weeks: [] };
+let saveTimer = null;
+
+// ── DATA PERSISTENCE ──────────────────────────────────────────────────────────
+
+// Test whether localStorage is actually usable (blocked on file:// in some Android browsers)
+let storageAvailable = false;
+try {
+  localStorage.setItem('__test__', '1');
+  localStorage.removeItem('__test__');
+  storageAvailable = true;
+} catch(e) {
+  storageAvailable = false;
+}
+
+function loadData() {
+  if (!storageAvailable) {
+    initFirstWeek();
+    showStorageWarning();
+    return;
+  }
+  try {
+    const raw = localStorage.getItem('gatesMealPlanner');
+    if (raw) data = JSON.parse(raw);
+    else initFirstWeek();
+  } catch(e) {
+    initFirstWeek();
+  }
+}
+
+function saveData() {
+  if (storageAvailable) {
+    try {
+      localStorage.setItem('gatesMealPlanner', JSON.stringify(data));
+    } catch(e) { /* storage full or blocked */ }
+  }
+  showToast();
+}
+
+function debouncedSave() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveData, 800);
+}
+
+function showToast() {
+  const t = document.getElementById('saveToast');
+  t.textContent = storageAvailable ? '✓ Saved' : '✓ Updated — use Export to save';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+function showStorageWarning() {
+  const banner = document.getElementById('storageBanner');
+  if (banner) banner.style.display = 'flex';
+}
+
+// ── DATE HELPERS ──────────────────────────────────────────────────────────────
+
+function nextMonday() {
+  const d = new Date();
+  d.setHours(0,0,0,0);
+  const day = d.getDay(); // 0=Sun, 1=Mon...
+  const diff = day === 1 ? 7 : (8 - day) % 7;
+  d.setDate(d.getDate() + diff);
+  return d;
+}
+
+function dateToISO(d) {
+  return d.toISOString().slice(0,10);
+}
+
+function isoToDate(s) {
+  const [y,m,d] = s.split('-').map(Number);
+  return new Date(y, m-1, d);
+}
+
+function formatDisplay(isoStr) {
+  const d = isoToDate(isoStr);
+  return `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+function addDays(isoStr, n) {
+  const d = isoToDate(isoStr);
+  d.setDate(d.getDate() + n);
+  return dateToISO(d);
+}
+
+// ── DATA STRUCTURE BUILDERS ───────────────────────────────────────────────────
+
+function blankDay() {
+  return {
+    breakfast: { who: [], notes: '' },
+    lunch: { who: [], notes: '' },
+    dinner: { title: '', who: [], protein: '', carbs: '', veg: '' }
+  };
+}
+
+function blankWeek(mondayISO) {
+  return { startDate: mondayISO, days: Array.from({length:7}, () => blankDay()) };
+}
+
+function initFirstWeek() {
+  const mon = nextMonday();
+  data.weeks = [blankWeek(dateToISO(mon))];
+  saveData();
+}
+
+// ── WEEK MANAGEMENT ───────────────────────────────────────────────────────────
+
+function addWeek() {
+  if (data.weeks.length === 0) {
+    initFirstWeek();
+  } else {
+    const last = data.weeks[data.weeks.length - 1];
+    const nextMon = addDays(last.startDate, 7);
+    data.weeks.push(blankWeek(nextMon));
+    saveData();
+  }
+  render();
+}
+
+function confirmRemoveFirst() {
+  if (data.weeks.length === 0) return;
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+}
+
+function removeFirstWeek() {
+  closeModal();
+  if (data.weeks.length > 0) {
+    data.weeks.shift();
+    saveData();
+    render();
+  }
+}
+
+// ── DATE EDITING ──────────────────────────────────────────────────────────────
+
+function startDateEdit(weekIdx) {
+  const disp = document.getElementById(`date-disp-${weekIdx}`);
+  const inp  = document.getElementById(`date-inp-${weekIdx}`);
+  disp.style.display = 'none';
+  inp.style.display  = 'inline-block';
+  inp.value = data.weeks[weekIdx].startDate;
+  inp.focus();
+}
+
+function finishDateEdit(weekIdx) {
+  const disp = document.getElementById(`date-disp-${weekIdx}`);
+  const inp  = document.getElementById(`date-inp-${weekIdx}`);
+  const val  = inp.value;
+  if (val && /^\d{4}-\d{2}-\d{2}$/.test(val)) {
+    data.weeks[weekIdx].startDate = val;
+    debouncedSave();
+    render();
+  } else {
+    disp.style.display = '';
+    inp.style.display  = 'none';
+  }
+}
+
+// ── FIELD UPDATE HELPERS ──────────────────────────────────────────────────────
+
+function updateField(weekIdx, dayIdx, meal, field, value) {
+  data.weeks[weekIdx].days[dayIdx][meal][field] = value;
+  debouncedSave();
+}
+
+function toggleWho(weekIdx, dayIdx, meal, person) {
+  const arr = data.weeks[weekIdx].days[dayIdx][meal].who;
+  const i = arr.indexOf(person);
+  if (i === -1) arr.push(person);
+  else arr.splice(i, 1);
+  debouncedSave();
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+
+function render() {
+  const container = document.getElementById('weeksContainer');
+
+  if (data.weeks.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="icon">🍽️</div>
+        <p>No weeks yet. Click <strong>Add Next Week</strong> to get started.</p>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = data.weeks.map((week, wi) => renderWeek(week, wi)).join('');
+}
+
+function renderWeek(week, wi) {
+  const weekEnd = addDays(week.startDate, 6);
+  const label = `Week of ${formatDisplay(week.startDate)} – ${formatDisplay(weekEnd)}`;
+
+  const daysHtml = week.days.map((day, di) => {
+    const dateISO = addDays(week.startDate, di);
+    return renderDay(day, wi, di, dateISO, di === 0);
+  }).join('');
+
+  return `
+    <div class="week-block">
+      <div class="week-header">${label}</div>
+      ${daysHtml}
+    </div>`;
+}
+
+function renderDay(day, wi, di, dateISO, isMonday) {
+  const dayName = DAY_NAMES[di];
+  const displayDate = formatDisplay(dateISO);
+
+  const dateSection = isMonday ? `
+    <span id="date-disp-${wi}" class="day-date-display" onclick="startDateEdit(${wi})" title="Click to change week start date">
+      ${displayDate} <span class="edit-hint">✎</span>
+    </span>
+    <input id="date-inp-${wi}" class="day-date-input" type="date"
+      onblur="finishDateEdit(${wi})"
+      onkeydown="if(event.key==='Enter')finishDateEdit(${wi}); if(event.key==='Escape'){document.getElementById('date-disp-${wi}').style.display='';this.style.display='none';}"
+    />` : `<span class="day-date-display" style="cursor:default">${displayDate}</span>`;
+
+  return `
+    <div class="day-card">
+      <div class="day-header">
+        <span class="day-name">${dayName}</span>
+        ${dateSection}
+      </div>
+      <div class="meals-grid">
+        ${renderSimpleMeal('breakfast','Breakfast', day, wi, di)}
+        ${renderSimpleMeal('lunch','Lunch', day, wi, di)}
+        ${renderDinner(day, wi, di)}
+      </div>
+    </div>`;
+}
+
+function renderSimpleMeal(mealKey, label, day, wi, di) {
+  const meal = day[mealKey];
+  const whoChecks = PEOPLE.map(p => `
+    <label class="who-label">
+      <input type="checkbox" ${meal.who.includes(p)?'checked':''}
+        onchange="toggleWho(${wi},${di},'${mealKey}','${p}')"> ${p}
+    </label>`).join('');
+
+  return `
+    <div class="meal-card">
+      <div class="meal-title">${label}</div>
+      <div class="who-row">${whoChecks}</div>
+      <textarea class="meal-notes" placeholder="What's for ${label.toLowerCase()}?"
+        oninput="updateField(${wi},${di},'${mealKey}','notes',this.value)">${escHtml(meal.notes)}</textarea>
+    </div>`;
+}
+
+function renderDinner(day, wi, di) {
+  const d = day.dinner;
+  const whoChecks = PEOPLE.map(p => `
+    <label class="who-label">
+      <input type="checkbox" ${d.who.includes(p)?'checked':''}
+        onchange="toggleWho(${wi},${di},'dinner','${p}')"> ${p}
+    </label>`).join('');
+
+  return `
+    <div class="meal-card">
+      <div class="meal-title">Dinner</div>
+      <div class="who-row">${whoChecks}</div>
+      <textarea class="meal-notes" placeholder="Dinner title / description…" style="min-height:38px"
+        oninput="updateField(${wi},${di},'dinner','title',this.value)">${escHtml(d.title)}</textarea>
+      <div class="dinner-subsections">
+        <div class="sub-row">
+          <span class="sub-label protein">Protein</span>
+          <textarea class="meal-notes" style="flex:1;min-height:38px" placeholder="e.g. chicken, salmon…"
+            oninput="updateField(${wi},${di},'dinner','protein',this.value)">${escHtml(d.protein)}</textarea>
+        </div>
+        <div class="sub-row">
+          <span class="sub-label carbs">Carbs</span>
+          <textarea class="meal-notes" style="flex:1;min-height:38px" placeholder="e.g. rice, pasta…"
+            oninput="updateField(${wi},${di},'dinner','carbs',this.value)">${escHtml(d.carbs)}</textarea>
+        </div>
+        <div class="sub-row">
+          <span class="sub-label veg">Veg</span>
+          <textarea class="meal-notes" style="flex:1;min-height:38px" placeholder="e.g. broccoli, salad…"
+            oninput="updateField(${wi},${di},'dinner','veg',this.value)">${escHtml(d.veg)}</textarea>
+        </div>
+      </div>
+    </div>`;
+}
+
+function escHtml(str) {
+  return (str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── EXPORT / IMPORT ───────────────────────────────────────────────────────────
+
+function exportData() {
+  const json = JSON.stringify(data, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  const date = new Date().toISOString().slice(0,10);
+  a.href     = url;
+  a.download = `gates-meal-planner-${date}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importData(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const parsed = JSON.parse(e.target.result);
+      if (!parsed.weeks || !Array.isArray(parsed.weeks)) throw new Error('Invalid format');
+      data = parsed;
+      saveData();
+      render();
+      showImportSuccess();
+    } catch(err) {
+      alert('Could not import — the file doesn\'t look like a valid meal planner export.');
+    }
+    // Reset so the same file can be re-imported if needed
+    event.target.value = '';
+  };
+  reader.readAsText(file);
+}
+
+function showImportSuccess() {
+  const t = document.getElementById('saveToast');
+  t.textContent = '✓ Imported';
+  t.classList.add('show');
+  setTimeout(() => { t.classList.remove('show'); t.textContent = '✓ Saved'; }, 2200);
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+
+loadData();
+render();
+</script>
+</body>
+</html>
