@@ -33,7 +33,6 @@
     padding-bottom: 60px;
   }
 
-  /* ── HEADER ── */
   header {
     background: var(--green);
     padding: 28px 24px 22px;
@@ -58,7 +57,6 @@
     text-transform: uppercase;
   }
 
-  /* ── TOOLBAR ── */
   .toolbar {
     display: flex;
     gap: 10px;
@@ -80,28 +78,13 @@
     letter-spacing: 0.03em;
     transition: all 0.18s ease;
   }
-  .btn-primary {
-    background: var(--green);
-    color: #fff;
-    box-shadow: 0 3px 10px rgba(58,107,74,0.3);
-  }
+  .btn-primary { background: var(--green); color: #fff; box-shadow: 0 3px 10px rgba(58,107,74,0.3); }
   .btn-primary:hover { background: var(--green-light); transform: translateY(-1px); }
-  .btn-danger {
-    background: #fff;
-    color: #b94040;
-    border: 1.5px solid #e8b8b8;
-    box-shadow: 0 2px 8px rgba(185,64,64,0.1);
-  }
+  .btn-danger { background: #fff; color: #b94040; border: 1.5px solid #e8b8b8; }
   .btn-danger:hover { background: #fff0f0; border-color: #c95050; }
-  .btn-export {
-    background: #fff;
-    color: var(--green);
-    border: 1.5px solid var(--warm-border);
-    box-shadow: 0 2px 8px var(--shadow);
-  }
+  .btn-export { background: #fff; color: var(--green); border: 1.5px solid var(--warm-border); }
   .btn-export:hover { background: var(--green-faint); border-color: var(--green-light); }
 
-  /* ── WEEK BLOCK ── */
   .weeks-container {
     padding: 20px 14px;
     display: flex;
@@ -128,65 +111,26 @@
     opacity: 0.85;
   }
 
-  /* ── DAY CARD ── */
-  .day-card {
-    border-bottom: 1.5px solid var(--warm-border);
-    padding: 16px 16px 18px;
-  }
+  .day-card { border-bottom: 1.5px solid var(--warm-border); padding: 16px 16px 18px; }
   .day-card:last-child { border-bottom: none; }
-  .day-header {
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-    margin-bottom: 14px;
-  }
-  .day-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--green);
-    min-width: 100px;
-  }
+  .day-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
+  .day-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--green); min-width: 100px; }
   .day-date-display {
-    font-size: 0.82rem;
-    color: var(--text-mid);
-    font-weight: 600;
-    cursor: pointer;
-    padding: 3px 8px;
-    border-radius: 6px;
-    border: 1.5px dashed transparent;
-    transition: all 0.15s;
+    font-size: 0.82rem; color: var(--text-mid); font-weight: 600;
+    cursor: pointer; padding: 3px 8px; border-radius: 6px;
+    border: 1.5px dashed transparent; transition: all 0.15s;
   }
-  .day-date-display:hover {
-    border-color: var(--warm-border);
-    background: #fff;
-  }
+  .day-date-display:hover { border-color: var(--warm-border); background: #fff; }
   .day-date-input {
-    font-size: 0.82rem;
-    font-family: 'Nunito', sans-serif;
-    padding: 3px 8px;
-    border-radius: 6px;
-    border: 1.5px solid var(--green-light);
-    background: #fff;
-    color: var(--text-dark);
-    display: none;
+    font-size: 0.82rem; font-family: 'Nunito', sans-serif;
+    padding: 3px 8px; border-radius: 6px;
+    border: 1.5px solid var(--green-light); background: #fff;
+    color: var(--text-dark); display: none;
   }
-  .edit-hint {
-    font-size: 0.7rem;
-    color: var(--text-light);
-    font-style: italic;
-    margin-left: 4px;
-  }
+  .edit-hint { font-size: 0.7rem; color: var(--text-light); font-style: italic; margin-left: 4px; }
 
-  /* ── MEALS GRID ── */
-  .meals-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 2fr;
-    gap: 10px;
-  }
-  @media (max-width: 700px) {
-    .meals-grid { grid-template-columns: 1fr; }
-  }
+  .meals-grid { display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 10px; }
+  @media (max-width: 700px) { .meals-grid { grid-template-columns: 1fr; } }
 
   .meal-card {
     background: #fff;
@@ -197,36 +141,60 @@
     flex-direction: column;
     gap: 8px;
   }
+
+  /* Title row with toggle */
+  .meal-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 6px;
+    border-bottom: 1.5px solid var(--amber-light);
+    gap: 6px;
+  }
   .meal-title {
     font-size: 0.7rem;
     font-weight: 800;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--amber);
-    padding-bottom: 6px;
-    border-bottom: 1.5px solid var(--amber-light);
   }
-  .who-row {
+
+  /* Shared / Individual pill toggle */
+  .mode-toggle {
     display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
+    background: var(--parchment);
+    border: 1.5px solid var(--warm-border);
+    border-radius: 20px;
+    overflow: hidden;
+    flex-shrink: 0;
   }
+  .mode-btn {
+    padding: 3px 9px;
+    font-size: 0.63rem;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    letter-spacing: 0.04em;
+    border: none;
+    background: transparent;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .mode-btn.active {
+    background: var(--green);
+    color: #fff;
+    border-radius: 20px;
+  }
+
+  .who-row { display: flex; gap: 8px; flex-wrap: wrap; }
   .who-label {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--text-mid);
-    cursor: pointer;
-    user-select: none;
+    display: flex; align-items: center; gap: 5px;
+    font-size: 0.78rem; font-weight: 600; color: var(--text-mid);
+    cursor: pointer; user-select: none;
   }
-  .who-label input[type="checkbox"] {
-    accent-color: var(--green);
-    width: 15px;
-    height: 15px;
-    cursor: pointer;
-  }
+  .who-label input[type="checkbox"] { accent-color: var(--green); width: 15px; height: 15px; cursor: pointer; }
+
   .meal-notes {
     font-family: 'Nunito', sans-serif;
     font-size: 0.82rem;
@@ -239,91 +207,69 @@
     color: var(--text-dark);
     transition: border-color 0.15s;
     line-height: 1.5;
+    width: 100%;
   }
-  .meal-notes:focus {
-    outline: none;
-    border-color: var(--green-light);
-    background: #fff;
-  }
+  .meal-notes:focus { outline: none; border-color: var(--green-light); background: #fff; }
 
-  /* ── DINNER SUB-SECTIONS ── */
-  .dinner-subsections {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+  /* Per-person sections */
+  .individual-sections { display: flex; flex-direction: column; gap: 8px; }
+  .person-section {
+    border: 1.5px solid var(--warm-border);
+    border-radius: 10px;
+    overflow: hidden;
   }
-  .sub-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-  }
-  .sub-label {
-    font-size: 0.7rem;
+  .person-header {
+    font-size: 0.68rem;
     font-weight: 800;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding-top: 8px;
-    min-width: 50px;
-    color: var(--text-light);
+    padding: 5px 10px;
+    background: var(--parchment);
+    color: var(--text-mid);
+    border-bottom: 1.5px solid var(--warm-border);
+  }
+  .person-header.ian      { color: #3a5a8a; background: #eef2fa; border-color: #d0daf0; }
+  .person-header.cristina { color: #7a3a6a; background: #faeef8; border-color: #f0d0ec; }
+  .person-header.maya     { color: #4a7a3a; background: #f2faea; border-color: #d8f0d0; }
+  .person-body { padding: 8px; background: #fff; display: flex; flex-direction: column; gap: 6px; }
+  .person-body .meal-notes { min-height: 40px; }
+
+  /* Dinner sub-sections */
+  .dinner-subsections { display: flex; flex-direction: column; gap: 6px; }
+  .sub-row { display: flex; align-items: flex-start; gap: 8px; }
+  .sub-label {
+    font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.08em; padding-top: 8px; min-width: 50px; color: var(--text-light);
   }
   .sub-label.protein { color: #a0522d; }
   .sub-label.carbs   { color: #8b6c2a; }
   .sub-label.veg     { color: #4a7c59; }
 
-  /* ── MODAL ── */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(20,15,5,0.5);
-    z-index: 1000;
-    align-items: center;
-    justify-content: center;
+  .no-people-hint {
+    font-size: 0.78rem;
+    color: var(--text-light);
+    font-style: italic;
+    padding: 4px 2px;
   }
+
+  /* Modal */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(20,15,5,0.5); z-index: 1000; align-items: center; justify-content: center; }
   .modal-overlay.active { display: flex; }
-  .modal {
-    background: var(--cream);
-    border-radius: 16px;
-    padding: 28px 24px;
-    max-width: 340px;
-    width: 90%;
-    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
-    text-align: center;
-  }
-  .modal h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    color: var(--text-dark);
-    margin-bottom: 10px;
-  }
+  .modal { background: var(--cream); border-radius: 16px; padding: 28px 24px; max-width: 340px; width: 90%; box-shadow: 0 12px 40px rgba(0,0,0,0.25); text-align: center; }
+  .modal h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--text-dark); margin-bottom: 10px; }
   .modal p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.5; margin-bottom: 20px; }
   .modal-btns { display: flex; gap: 10px; justify-content: center; }
 
-  /* ── EMPTY STATE ── */
-  .empty-state {
-    text-align: center;
-    padding: 50px 20px;
-    color: var(--text-light);
-  }
+  .empty-state { text-align: center; padding: 50px 20px; color: var(--text-light); }
   .empty-state .icon { font-size: 3rem; margin-bottom: 12px; }
-  .empty-state p { font-size: 0.95rem; }
 
-  /* ── SAVE INDICATOR ── */
   .save-toast {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: var(--green);
-    color: #fff;
-    padding: 9px 18px;
-    border-radius: 50px;
-    font-size: 0.78rem;
-    font-weight: 700;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.3s ease;
-    pointer-events: none;
-    z-index: 500;
+    position: fixed; bottom: 20px; right: 20px;
+    background: var(--green); color: #fff;
+    padding: 9px 18px; border-radius: 50px;
+    font-size: 0.78rem; font-weight: 700;
+    opacity: 0; transform: translateY(10px);
+    transition: all 0.3s ease; pointer-events: none; z-index: 500;
   }
   .save-toast.show { opacity: 1; transform: translateY(0); }
 </style>
@@ -343,9 +289,8 @@
   <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
 </div>
 
-<div id="storageBanner" style="display:none; background:#fff8e6; border:1.5px solid #f0c060; border-radius:10px; margin:14px 14px 0; padding:11px 16px; align-items:center; gap:12px; font-size:0.83rem; color:#6b4a10; max-width:960px; margin-left:auto; margin-right:auto;">
-  <span style="font-size:1.2rem">⚠️</span>
-  <span><strong>Auto-save unavailable</strong> — your browser is blocking local storage for this file. Your changes will be lost when you close the tab. Use <strong>⬇ Export</strong> to save your data and <strong>⬆ Import</strong> to reload it next time.</span>
+<div id="storageBanner" style="display:none; background:#fff8e6; border:1.5px solid #f0c060; border-radius:10px; margin:14px; padding:11px 16px; font-size:0.83rem; color:#6b4a10; max-width:960px;">
+  ⚠️ <strong>Auto-save unavailable</strong> — your browser is blocking local storage. Use <strong>⬇ Export</strong> to save your data before closing.
 </div>
 
 <div class="weeks-container" id="weeksContainer"></div>
@@ -364,45 +309,38 @@
 <div class="save-toast" id="saveToast">✓ Saved</div>
 
 <script>
-const PEOPLE = ['Ian', 'Cristina', 'Maya'];
+const PEOPLE    = ['Ian','Cristina','Maya'];
 const DAY_NAMES = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
-const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const MONTHS    = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
 let data = { weeks: [] };
 let saveTimer = null;
 
-// ── DATA PERSISTENCE ──────────────────────────────────────────────────────────
-
-// Test whether localStorage is actually usable (blocked on file:// in some Android browsers)
+// ── STORAGE CHECK ─────────────────────────────────────────────────────────────
 let storageAvailable = false;
-try {
-  localStorage.setItem('__test__', '1');
-  localStorage.removeItem('__test__');
-  storageAvailable = true;
-} catch(e) {
-  storageAvailable = false;
-}
+try { localStorage.setItem('__t','1'); localStorage.removeItem('__t'); storageAvailable = true; } catch(e) {}
 
+// ── PERSISTENCE ───────────────────────────────────────────────────────────────
 function loadData() {
   if (!storageAvailable) {
     initFirstWeek();
-    showStorageWarning();
+    document.getElementById('storageBanner').style.display = 'block';
     return;
   }
   try {
     const raw = localStorage.getItem('gatesMealPlanner');
-    if (raw) data = JSON.parse(raw);
-    else initFirstWeek();
-  } catch(e) {
-    initFirstWeek();
-  }
+    if (raw) {
+      data = JSON.parse(raw);
+      data.weeks.forEach(w => w.days.forEach(d => migrate(d)));
+    } else {
+      initFirstWeek();
+    }
+  } catch(e) { initFirstWeek(); }
 }
 
 function saveData() {
   if (storageAvailable) {
-    try {
-      localStorage.setItem('gatesMealPlanner', JSON.stringify(data));
-    } catch(e) { /* storage full or blocked */ }
+    try { localStorage.setItem('gatesMealPlanner', JSON.stringify(data)); } catch(e) {}
   }
   showToast();
 }
@@ -412,300 +350,276 @@ function debouncedSave() {
   saveTimer = setTimeout(saveData, 800);
 }
 
-function showToast() {
+function showToast(msg) {
   const t = document.getElementById('saveToast');
-  t.textContent = storageAvailable ? '✓ Saved' : '✓ Updated — use Export to save';
+  t.textContent = msg || (storageAvailable ? '✓ Saved' : '✓ Updated — Export to save');
   t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2400);
-}
-
-function showStorageWarning() {
-  const banner = document.getElementById('storageBanner');
-  if (banner) banner.style.display = 'flex';
+  setTimeout(() => t.classList.remove('show'), 2200);
 }
 
 // ── DATE HELPERS ──────────────────────────────────────────────────────────────
-
 function nextMonday() {
-  const d = new Date();
-  d.setHours(0,0,0,0);
-  const day = d.getDay(); // 0=Sun, 1=Mon...
-  const diff = day === 1 ? 7 : (8 - day) % 7;
-  d.setDate(d.getDate() + diff);
+  const d = new Date(); d.setHours(0,0,0,0);
+  const day = d.getDay();
+  d.setDate(d.getDate() + (day === 1 ? 7 : (8-day)%7));
   return d;
 }
+function dateToISO(d) { return d.toISOString().slice(0,10); }
+function isoToDate(s) { const [y,m,d]=s.split('-').map(Number); return new Date(y,m-1,d); }
+function formatDisplay(s) { const d=isoToDate(s); return `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`; }
+function addDays(s,n) { const d=isoToDate(s); d.setDate(d.getDate()+n); return dateToISO(d); }
 
-function dateToISO(d) {
-  return d.toISOString().slice(0,10);
-}
-
-function isoToDate(s) {
-  const [y,m,d] = s.split('-').map(Number);
-  return new Date(y, m-1, d);
-}
-
-function formatDisplay(isoStr) {
-  const d = isoToDate(isoStr);
-  return `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
-}
-
-function addDays(isoStr, n) {
-  const d = isoToDate(isoStr);
-  d.setDate(d.getDate() + n);
-  return dateToISO(d);
-}
-
-// ── DATA STRUCTURE BUILDERS ───────────────────────────────────────────────────
-
-function blankDay() {
+// ── DATA BUILDERS ─────────────────────────────────────────────────────────────
+function blankSimple()  { return { who:[], mode:'shared', notes:'', individual: Object.fromEntries(PEOPLE.map(p=>[p,''])) }; }
+function blankPDinner() { return { title:'', protein:'', carbs:'', veg:'' }; }
+function blankDinner()  {
   return {
-    breakfast: { who: [], notes: '' },
-    lunch: { who: [], notes: '' },
-    dinner: { title: '', who: [], protein: '', carbs: '', veg: '' }
+    who:[], mode:'shared', title:'', protein:'', carbs:'', veg:'',
+    individual: Object.fromEntries(PEOPLE.map(p=>[p, blankPDinner()]))
   };
 }
+function blankDay() { return { breakfast: blankSimple(), lunch: blankSimple(), dinner: blankDinner() }; }
+function blankWeek(mon) { return { startDate: mon, days: Array.from({length:7}, () => blankDay()) }; }
+function initFirstWeek() { data.weeks = [blankWeek(dateToISO(nextMonday()))]; saveData(); }
 
-function blankWeek(mondayISO) {
-  return { startDate: mondayISO, days: Array.from({length:7}, () => blankDay()) };
-}
-
-function initFirstWeek() {
-  const mon = nextMonday();
-  data.weeks = [blankWeek(dateToISO(mon))];
-  saveData();
+// Migrate old saved data that lacks mode/individual
+function migrate(day) {
+  ['breakfast','lunch'].forEach(m => {
+    if (!day[m].mode) day[m].mode = 'shared';
+    if (!day[m].individual) day[m].individual = Object.fromEntries(PEOPLE.map(p=>[p,'']));
+  });
+  if (!day.dinner.mode) day.dinner.mode = 'shared';
+  if (!day.dinner.individual) day.dinner.individual = Object.fromEntries(PEOPLE.map(p=>[p, blankPDinner()]));
+  PEOPLE.forEach(p => {
+    if (!day.dinner.individual[p]) day.dinner.individual[p] = blankPDinner();
+  });
 }
 
 // ── WEEK MANAGEMENT ───────────────────────────────────────────────────────────
-
 function addWeek() {
-  if (data.weeks.length === 0) {
-    initFirstWeek();
-  } else {
-    const last = data.weeks[data.weeks.length - 1];
-    const nextMon = addDays(last.startDate, 7);
-    data.weeks.push(blankWeek(nextMon));
-    saveData();
-  }
+  if (!data.weeks.length) { initFirstWeek(); }
+  else { data.weeks.push(blankWeek(addDays(data.weeks[data.weeks.length-1].startDate, 7))); saveData(); }
   render();
 }
-
-function confirmRemoveFirst() {
-  if (data.weeks.length === 0) return;
-  document.getElementById('modalOverlay').classList.add('active');
-}
-
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('active');
-}
-
-function removeFirstWeek() {
-  closeModal();
-  if (data.weeks.length > 0) {
-    data.weeks.shift();
-    saveData();
-    render();
-  }
-}
+function confirmRemoveFirst() { if (data.weeks.length) document.getElementById('modalOverlay').classList.add('active'); }
+function closeModal() { document.getElementById('modalOverlay').classList.remove('active'); }
+function removeFirstWeek() { closeModal(); data.weeks.shift(); saveData(); render(); }
 
 // ── DATE EDITING ──────────────────────────────────────────────────────────────
-
-function startDateEdit(weekIdx) {
-  const disp = document.getElementById(`date-disp-${weekIdx}`);
-  const inp  = document.getElementById(`date-inp-${weekIdx}`);
-  disp.style.display = 'none';
-  inp.style.display  = 'inline-block';
-  inp.value = data.weeks[weekIdx].startDate;
+function startDateEdit(wi) {
+  document.getElementById(`dd-${wi}`).style.display = 'none';
+  const inp = document.getElementById(`di-${wi}`);
+  inp.style.display = 'inline-block';
+  inp.value = data.weeks[wi].startDate;
   inp.focus();
 }
-
-function finishDateEdit(weekIdx) {
-  const disp = document.getElementById(`date-disp-${weekIdx}`);
-  const inp  = document.getElementById(`date-inp-${weekIdx}`);
-  const val  = inp.value;
-  if (val && /^\d{4}-\d{2}-\d{2}$/.test(val)) {
-    data.weeks[weekIdx].startDate = val;
-    debouncedSave();
-    render();
-  } else {
-    disp.style.display = '';
-    inp.style.display  = 'none';
-  }
+function finishDateEdit(wi) {
+  const disp = document.getElementById(`dd-${wi}`);
+  const inp  = document.getElementById(`di-${wi}`);
+  if (inp.value && /^\d{4}-\d{2}-\d{2}$/.test(inp.value)) {
+    data.weeks[wi].startDate = inp.value;
+    debouncedSave(); render();
+  } else { disp.style.display=''; inp.style.display='none'; }
 }
 
-// ── FIELD UPDATE HELPERS ──────────────────────────────────────────────────────
-
-function updateField(weekIdx, dayIdx, meal, field, value) {
-  data.weeks[weekIdx].days[dayIdx][meal][field] = value;
+// ── FIELD UPDATES ─────────────────────────────────────────────────────────────
+function updateField(wi, di, meal, field, val) {
+  data.weeks[wi].days[di][meal][field] = val;
   debouncedSave();
 }
-
-function toggleWho(weekIdx, dayIdx, meal, person) {
-  const arr = data.weeks[weekIdx].days[dayIdx][meal].who;
+function updateIndividual(wi, di, meal, person, field, val) {
+  if (field === 'notes') data.weeks[wi].days[di][meal].individual[person] = val;
+  else data.weeks[wi].days[di][meal].individual[person][field] = val;
+  debouncedSave();
+}
+function toggleWho(wi, di, meal, person) {
+  const arr = data.weeks[wi].days[di][meal].who;
   const i = arr.indexOf(person);
-  if (i === -1) arr.push(person);
-  else arr.splice(i, 1);
+  if (i===-1) arr.push(person); else arr.splice(i,1);
   debouncedSave();
+  if (data.weeks[wi].days[di][meal].mode === 'individual') render();
 }
-
-// ── RENDER ────────────────────────────────────────────────────────────────────
-
-function render() {
-  const container = document.getElementById('weeksContainer');
-
-  if (data.weeks.length === 0) {
-    container.innerHTML = `
-      <div class="empty-state">
-        <div class="icon">🍽️</div>
-        <p>No weeks yet. Click <strong>Add Next Week</strong> to get started.</p>
-      </div>`;
-    return;
-  }
-
-  container.innerHTML = data.weeks.map((week, wi) => renderWeek(week, wi)).join('');
-}
-
-function renderWeek(week, wi) {
-  const weekEnd = addDays(week.startDate, 6);
-  const label = `Week of ${formatDisplay(week.startDate)} – ${formatDisplay(weekEnd)}`;
-
-  const daysHtml = week.days.map((day, di) => {
-    const dateISO = addDays(week.startDate, di);
-    return renderDay(day, wi, di, dateISO, di === 0);
-  }).join('');
-
-  return `
-    <div class="week-block">
-      <div class="week-header">${label}</div>
-      ${daysHtml}
-    </div>`;
-}
-
-function renderDay(day, wi, di, dateISO, isMonday) {
-  const dayName = DAY_NAMES[di];
-  const displayDate = formatDisplay(dateISO);
-
-  const dateSection = isMonday ? `
-    <span id="date-disp-${wi}" class="day-date-display" onclick="startDateEdit(${wi})" title="Click to change week start date">
-      ${displayDate} <span class="edit-hint">✎</span>
-    </span>
-    <input id="date-inp-${wi}" class="day-date-input" type="date"
-      onblur="finishDateEdit(${wi})"
-      onkeydown="if(event.key==='Enter')finishDateEdit(${wi}); if(event.key==='Escape'){document.getElementById('date-disp-${wi}').style.display='';this.style.display='none';}"
-    />` : `<span class="day-date-display" style="cursor:default">${displayDate}</span>`;
-
-  return `
-    <div class="day-card">
-      <div class="day-header">
-        <span class="day-name">${dayName}</span>
-        ${dateSection}
-      </div>
-      <div class="meals-grid">
-        ${renderSimpleMeal('breakfast','Breakfast', day, wi, di)}
-        ${renderSimpleMeal('lunch','Lunch', day, wi, di)}
-        ${renderDinner(day, wi, di)}
-      </div>
-    </div>`;
-}
-
-function renderSimpleMeal(mealKey, label, day, wi, di) {
-  const meal = day[mealKey];
-  const whoChecks = PEOPLE.map(p => `
-    <label class="who-label">
-      <input type="checkbox" ${meal.who.includes(p)?'checked':''}
-        onchange="toggleWho(${wi},${di},'${mealKey}','${p}')"> ${p}
-    </label>`).join('');
-
-  return `
-    <div class="meal-card">
-      <div class="meal-title">${label}</div>
-      <div class="who-row">${whoChecks}</div>
-      <textarea class="meal-notes" placeholder="What's for ${label.toLowerCase()}?"
-        oninput="updateField(${wi},${di},'${mealKey}','notes',this.value)">${escHtml(meal.notes)}</textarea>
-    </div>`;
-}
-
-function renderDinner(day, wi, di) {
-  const d = day.dinner;
-  const whoChecks = PEOPLE.map(p => `
-    <label class="who-label">
-      <input type="checkbox" ${d.who.includes(p)?'checked':''}
-        onchange="toggleWho(${wi},${di},'dinner','${p}')"> ${p}
-    </label>`).join('');
-
-  return `
-    <div class="meal-card">
-      <div class="meal-title">Dinner</div>
-      <div class="who-row">${whoChecks}</div>
-      <textarea class="meal-notes" placeholder="Dinner title / description…" style="min-height:38px"
-        oninput="updateField(${wi},${di},'dinner','title',this.value)">${escHtml(d.title)}</textarea>
-      <div class="dinner-subsections">
-        <div class="sub-row">
-          <span class="sub-label protein">Protein</span>
-          <textarea class="meal-notes" style="flex:1;min-height:38px" placeholder="e.g. chicken, salmon…"
-            oninput="updateField(${wi},${di},'dinner','protein',this.value)">${escHtml(d.protein)}</textarea>
-        </div>
-        <div class="sub-row">
-          <span class="sub-label carbs">Carbs</span>
-          <textarea class="meal-notes" style="flex:1;min-height:38px" placeholder="e.g. rice, pasta…"
-            oninput="updateField(${wi},${di},'dinner','carbs',this.value)">${escHtml(d.carbs)}</textarea>
-        </div>
-        <div class="sub-row">
-          <span class="sub-label veg">Veg</span>
-          <textarea class="meal-notes" style="flex:1;min-height:38px" placeholder="e.g. broccoli, salad…"
-            oninput="updateField(${wi},${di},'dinner','veg',this.value)">${escHtml(d.veg)}</textarea>
-        </div>
-      </div>
-    </div>`;
-}
-
-function escHtml(str) {
-  return (str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+function toggleMode(wi, di, meal, mode) {
+  data.weeks[wi].days[di][meal].mode = mode;
+  debouncedSave(); render();
 }
 
 // ── EXPORT / IMPORT ───────────────────────────────────────────────────────────
-
 function exportData() {
-  const json = JSON.stringify(data, null, 2);
-  const blob = new Blob([json], { type: 'application/json' });
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
   const url  = URL.createObjectURL(blob);
   const a    = document.createElement('a');
-  const date = new Date().toISOString().slice(0,10);
-  a.href     = url;
-  a.download = `gates-meal-planner-${date}.json`;
+  a.href = url;
+  a.download = `gates-meal-planner-${new Date().toISOString().slice(0,10)}.json`;
   a.click();
   URL.revokeObjectURL(url);
 }
-
 function importData(event) {
   const file = event.target.files[0];
   if (!file) return;
   const reader = new FileReader();
-  reader.onload = function(e) {
+  reader.onload = e => {
     try {
       const parsed = JSON.parse(e.target.result);
-      if (!parsed.weeks || !Array.isArray(parsed.weeks)) throw new Error('Invalid format');
+      if (!parsed.weeks || !Array.isArray(parsed.weeks)) throw new Error();
       data = parsed;
-      saveData();
-      render();
-      showImportSuccess();
-    } catch(err) {
-      alert('Could not import — the file doesn\'t look like a valid meal planner export.');
-    }
-    // Reset so the same file can be re-imported if needed
+      data.weeks.forEach(w => w.days.forEach(d => migrate(d)));
+      saveData(); render(); showToast('✓ Imported');
+    } catch { alert("Could not import — doesn't look like a valid meal planner file."); }
     event.target.value = '';
   };
   reader.readAsText(file);
 }
 
-function showImportSuccess() {
-  const t = document.getElementById('saveToast');
-  t.textContent = '✓ Imported';
-  t.classList.add('show');
-  setTimeout(() => { t.classList.remove('show'); t.textContent = '✓ Saved'; }, 2200);
+// ── RENDER ────────────────────────────────────────────────────────────────────
+function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function modeToggle(wi, di, meal, mode) {
+  return `<div class="mode-toggle">
+    <button class="mode-btn ${mode==='shared'?'active':''}" onclick="toggleMode(${wi},${di},'${meal}','shared')">Shared</button>
+    <button class="mode-btn ${mode==='individual'?'active':''}" onclick="toggleMode(${wi},${di},'${meal}','individual')">Individual</button>
+  </div>`;
+}
+
+function whoRow(mealObj, wi, di, mealKey) {
+  return `<div class="who-row">${PEOPLE.map(p=>`
+    <label class="who-label">
+      <input type="checkbox" ${mealObj.who.includes(p)?'checked':''} onchange="toggleWho(${wi},${di},'${mealKey}','${p}')"> ${p}
+    </label>`).join('')}</div>`;
+}
+
+function dinnerSubsHtml(wi, di, fields, prefix) {
+  // prefix is either '' (shared) or a person name string (individual)
+  const isInd = prefix !== '';
+  const fUpdate = isInd
+    ? (f,v) => `updateIndividual(${wi},${di},'dinner','${prefix}','${f}',this.value)`
+    : (f,v) => `updateField(${wi},${di},'dinner','${f}',this.value)`;
+  return `
+    <div class="dinner-subsections">
+      <div class="sub-row">
+        <span class="sub-label protein">Protein</span>
+        <textarea class="meal-notes" style="flex:1;min-height:${isInd?'34':'38'}px" placeholder="e.g. chicken, salmon…"
+          oninput="${fUpdate('protein')}">${esc(fields.protein)}</textarea>
+      </div>
+      <div class="sub-row">
+        <span class="sub-label carbs">Carbs</span>
+        <textarea class="meal-notes" style="flex:1;min-height:${isInd?'34':'38'}px" placeholder="e.g. rice, pasta…"
+          oninput="${fUpdate('carbs')}">${esc(fields.carbs)}</textarea>
+      </div>
+      <div class="sub-row">
+        <span class="sub-label veg">Veg</span>
+        <textarea class="meal-notes" style="flex:1;min-height:${isInd?'34':'38'}px" placeholder="e.g. broccoli, salad…"
+          oninput="${fUpdate('veg')}">${esc(fields.veg)}</textarea>
+      </div>
+    </div>`;
+}
+
+function renderSimpleMeal(mealKey, label, day, wi, di) {
+  const m = day[mealKey];
+  let bodyHtml;
+  if (m.mode === 'shared') {
+    bodyHtml = `<textarea class="meal-notes" placeholder="What's for ${label.toLowerCase()}?"
+      oninput="updateField(${wi},${di},'${mealKey}','notes',this.value)">${esc(m.notes)}</textarea>`;
+  } else {
+    if (!m.who.length) {
+      bodyHtml = `<p class="no-people-hint">Tick names above to add individual entries.</p>`;
+    } else {
+      bodyHtml = `<div class="individual-sections">${m.who.map(p=>`
+        <div class="person-section">
+          <div class="person-header ${p.toLowerCase()}">${p}</div>
+          <div class="person-body">
+            <textarea class="meal-notes" placeholder="${label}…"
+              oninput="updateIndividual(${wi},${di},'${mealKey}','${p}','notes',this.value)">${esc(m.individual[p])}</textarea>
+          </div>
+        </div>`).join('')}</div>`;
+    }
+  }
+  return `<div class="meal-card">
+    <div class="meal-title-row">
+      <span class="meal-title">${label}</span>
+      ${modeToggle(wi, di, mealKey, m.mode)}
+    </div>
+    ${whoRow(m, wi, di, mealKey)}
+    ${bodyHtml}
+  </div>`;
+}
+
+function renderDinner(day, wi, di) {
+  const d = day.dinner;
+  let bodyHtml;
+  if (d.mode === 'shared') {
+    bodyHtml = `
+      <textarea class="meal-notes" placeholder="Dinner title / description…" style="min-height:38px"
+        oninput="updateField(${wi},${di},'dinner','title',this.value)">${esc(d.title)}</textarea>
+      ${dinnerSubsHtml(wi, di, d, '')}`;
+  } else {
+    if (!d.who.length) {
+      bodyHtml = `<p class="no-people-hint">Tick names above to add individual entries.</p>`;
+    } else {
+      bodyHtml = `<div class="individual-sections">${d.who.map(p => {
+        const pd = d.individual[p] || blankPDinner();
+        return `<div class="person-section">
+          <div class="person-header ${p.toLowerCase()}">${p}</div>
+          <div class="person-body">
+            <textarea class="meal-notes" placeholder="Dinner title…" style="min-height:34px"
+              oninput="updateIndividual(${wi},${di},'dinner','${p}','title',this.value)">${esc(pd.title)}</textarea>
+            ${dinnerSubsHtml(wi, di, pd, p)}
+          </div>
+        </div>`;
+      }).join('')}</div>`;
+    }
+  }
+  return `<div class="meal-card">
+    <div class="meal-title-row">
+      <span class="meal-title">Dinner</span>
+      ${modeToggle(wi, di, 'dinner', d.mode)}
+    </div>
+    ${whoRow(d, wi, di, 'dinner')}
+    ${bodyHtml}
+  </div>`;
+}
+
+function renderDay(day, wi, di, dateISO, isMonday) {
+  const dateSection = isMonday
+    ? `<span id="dd-${wi}" class="day-date-display" onclick="startDateEdit(${wi})" title="Click to change week start date">
+         ${formatDisplay(dateISO)} <span class="edit-hint">✎</span></span>
+       <input id="di-${wi}" class="day-date-input" type="date"
+         onblur="finishDateEdit(${wi})"
+         onkeydown="if(event.key==='Enter')finishDateEdit(${wi});if(event.key==='Escape'){document.getElementById('dd-${wi}').style.display='';this.style.display='none';}">`
+    : `<span class="day-date-display" style="cursor:default">${formatDisplay(dateISO)}</span>`;
+
+  return `<div class="day-card">
+    <div class="day-header">
+      <span class="day-name">${DAY_NAMES[di]}</span>
+      ${dateSection}
+    </div>
+    <div class="meals-grid">
+      ${renderSimpleMeal('breakfast','Breakfast',day,wi,di)}
+      ${renderSimpleMeal('lunch','Lunch',day,wi,di)}
+      ${renderDinner(day,wi,di)}
+    </div>
+  </div>`;
+}
+
+function render() {
+  const c = document.getElementById('weeksContainer');
+  if (!data.weeks.length) {
+    c.innerHTML = `<div class="empty-state"><div class="icon">🍽️</div><p>No weeks yet. Click <strong>Add Next Week</strong> to get started.</p></div>`;
+    return;
+  }
+  c.innerHTML = data.weeks.map((week, wi) => {
+    const daysHtml = week.days.map((day, di) => {
+      migrate(day);
+      return renderDay(day, wi, di, addDays(week.startDate, di), di===0);
+    }).join('');
+    return `<div class="week-block">
+      <div class="week-header">Week of ${formatDisplay(week.startDate)} – ${formatDisplay(addDays(week.startDate,6))}</div>
+      ${daysHtml}
+    </div>`;
+  }).join('');
 }
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
-
 loadData();
 render();
 </script>
